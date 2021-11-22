@@ -1,0 +1,20 @@
+{
+  "name": "back-integral-m05-desafio",
+  "version": "1.0.0",
+  "description": "![](https://i.imgur.com/xG74tOh.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smarticogit/back-integral-m05-desafio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smarticogit/back-integral-m05-desafio/issues"
+  },
+  "homepage": "https://github.com/smarticogit/back-integral-m05-desafio#readme"
+}
