@@ -7,7 +7,7 @@ const login = async (req, res) => {
     const { email, senha } = req.body;
 
     if (!email || !senha) {
-        return res.status(404).json('É obrigatório email e senha');
+        return res.status(404).json('É obrigatório preencher email e senha');
     }
 
     try {
@@ -22,7 +22,7 @@ const login = async (req, res) => {
         const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
         if (!senhaCorreta) {
-            return res.status(400).json("Email e senha não confere");
+            return res.status(400).json("Email ou senha não conferem");
         }
 
         const token = jwt.sign({ id: usuario.id }, senhaHash, { expiresIn: '8h' });
