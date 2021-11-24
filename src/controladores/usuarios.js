@@ -30,7 +30,7 @@ const cadastrarUsuario = async (req, res) => {
         if (!usuario) {
             return res.status(400).json("O usuário não foi cadastrado.");
         }
-
+        
         return res.status(200).json(usuario);
     } catch (error) {
         return res.status(400).json(error.message);
