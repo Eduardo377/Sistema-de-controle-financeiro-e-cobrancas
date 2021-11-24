@@ -6,10 +6,6 @@ const editarUsuarioSchema = require('../validacoes/editarUsuarioSchema');
 const cadastrarUsuario = async (req, res) => {
     const { nome, email, senha, cpf, tel } = req.body;
 
-    if (!nome || !email || !senha ) {
-        return res.status(404).json("Preencha os campos obrigatórios");
-    }
-
     try {
         await cadastroUsuarioSchema.validate(req.body);
 
