@@ -2,7 +2,7 @@ create database cobranca;
 
 drop table if exists usuarios;
 
-create table usuarios (
+create table if not exists usuarios (
 	id serial primary key,
   	nome text not null,
   	email text not null unique,
@@ -11,19 +11,19 @@ create table usuarios (
 	tel text
 );
 
-DROP TABLE IF EXISTS cliente;
+drop table if exists clientes;
 
-CREATE TABLE IF NOT EXISTS cliente (
-	id SERIAL PRIMARY KEY NOT NULL,
-	usuario_id INTEGER NOT NULL,
-	nome TEXT NOT NULL,
-	cpf INTEGER NOT NULL,
-	telefone TEXT NOT NULL,
-	enderenço TEXT,
-	complemento TEXT,
-	CEP TEXT,
-	Bairro TEXT,
-	Cidade TEXT NOT NULL,
-	UF TEXT NOT NULL,
+create table if not exists cliente (
+	id serial primary key,
+	usuario_id integer not null,
+	nome text not null,
+	cpf integer not null,
+	telefone text not null,
+	enderenço text,
+	complemento text,
+	CEP text,
+	Bairro text,
+	Cidade text not null,
+	UF text not null,
 	foreign key (usuario_id) references usuarios (id)
 );
