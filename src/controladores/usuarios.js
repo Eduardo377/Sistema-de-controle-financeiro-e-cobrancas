@@ -1,16 +1,17 @@
 const bcrypt = require('bcrypt');
 const knex = require('../conexao');
+const cadastroUsuarioSchema = require('../validacoes/cadastroUsuarioSchema');
+const editarUsuarioSchema = require('../validacoes/editarUsuarioSchema');
 
-const cadastrarUsuario = async(req, res) => {
-    const { nome, email, senha } = req.body;
-    if (!nome || !email || !senha) {
-        return res.status(404).json("Preencha os campos obrigatórios");
-    }
+const cadastrarUsuario = async (req, res) => {
+    const { nome, email, senha, cpf, tel } = req.body;
 
     try {
-        const encontrado = await knex('usuarios').where({ email }).first();
+        await cadastroUsuarioSchema.validate(req.body);
 
-        if (encontrado) {
+        const existeUsuario = await knex('usuarios').where({ email }).first();
+
+        if (existeUsuario) {
             return res.status(400).json("O email já existe");
         }
 
@@ -19,7 +20,9 @@ const cadastrarUsuario = async(req, res) => {
         const dados = {
             nome,
             email,
-            senha: senhaCriptografada
+            senha: senhaCriptografada,
+            cpf,
+            tel
         }
 
         const usuario = await knex('usuarios').insert(dados).returning('*');
@@ -28,7 +31,7 @@ const cadastrarUsuario = async(req, res) => {
             return res.status(400).json("O usuário não foi cadastrado.");
         }
 
-        return res.status(200).json(usuario);
+        return res.status(200).json("Usuario Cadastrado com Sucesso!");
     } catch (error) {
         return res.status(400).json(error.message);
     }
@@ -68,3 +71,4 @@ module.exports = {
     cadastrarUsuario,
     atualizarUsuario
 };
+

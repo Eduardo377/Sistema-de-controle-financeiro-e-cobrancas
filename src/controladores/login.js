@@ -2,16 +2,19 @@ const knex = require('../conexao');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const senhaHash = require('../senhaHash');
+const loginSchema = require('../validacoes/loginSchema');
 
 const login = async (req, res) => {
     const { email, senha } = req.body;
 
-    if (!email || !senha) {
-        return res.status(404).json('É obrigatório email e senha');
-    }
-
     try {
+        await loginSchema.validate(req.body);
+
         const usuarios = await knex('usuarios').where('email', email);
+
+        if (usuarios === []) {
+            return res.status(400).json("teste");
+        }
 
         if (!usuarios) {
             return res.status(400).json("O usuario não foi encontrado");
@@ -22,7 +25,7 @@ const login = async (req, res) => {
         const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
         if (!senhaCorreta) {
-            return res.status(400).json("Email e senha não confere");
+            return res.status(400).json("Email ou senha não conferem");
         }
 
         const token = jwt.sign({ id: usuario.id }, senhaHash, { expiresIn: '8h' });
