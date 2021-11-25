@@ -37,13 +37,38 @@ const cadastrarUsuario = async (req, res) => {
     }
 }
 
-const editarUsuario = async (req, res) => {
-    await editarUsuarioSchema.validate(req.body);
+const atualizarUsuario = async(req, res) => {
+    const { nome, email, cpf, tel, senha } = req.body;
+    const { id } = req.params;
+    if (!nome) {
+        return;
+    };
+    if (!email) {
+        return;
+    };
+    try {
 
-}
+        const usuario = await knex('usuarios').where({ id }).update({ nome, email, senha, cpf, tel }).returning('*');
 
+        const dados = usuario.map((user) => {
+            return {
+                id: user.id,
+                nome: user.nome,
+                email: user.email,
+                cpf: user.cpf,
+                tel: user.tel
+            }
+        });
+
+        return res.status(200).json(dados);
+
+    } catch (error) {
+        return res.status(500).json({ messagem: 'Erro inesperado - ' + error.message });
+    };
+};
 
 module.exports = {
     cadastrarUsuario,
-    editarUsuario
-}
+    atualizarUsuario
+};
+
