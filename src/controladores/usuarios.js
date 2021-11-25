@@ -30,8 +30,10 @@ const cadastrarUsuario = async (req, res) => {
         if (!usuario) {
             return res.status(400).json("O usuário não foi cadastrado.");
         }
-        
-        return res.status(200).json(usuario);
+
+        const { senha, ...dadosUsuario } = usuario;
+
+        return res.status(200).json(dadosUsuario);
     } catch (error) {
         return res.status(400).json(error.message);
     }
@@ -39,7 +41,7 @@ const cadastrarUsuario = async (req, res) => {
 
 const editarUsuario = async (req, res) => {
     await editarUsuarioSchema.validate(req.body);
- 
+
 }
 
 
