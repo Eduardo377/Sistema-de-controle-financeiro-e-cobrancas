@@ -12,5 +12,4 @@ rotas.use(verificaLogin);
 
 rotas.put('/usuario/:id', usuarios.atualizarUsuario);
 
-
 module.exports = rotas;

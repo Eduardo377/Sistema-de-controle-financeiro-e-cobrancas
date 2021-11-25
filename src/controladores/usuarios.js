@@ -5,12 +5,7 @@ const editarUsuarioSchema = require('../validacoes/editarUsuarioSchema');
 
 const verificarEmail = async(req, res, next) => {
     const { nome, email } = req.body;
-    if (!nome) {
-        return;
-    };
-    if (!email) {
-        return;
-    };
+
     await cadastroUsuarioSchema.validate(req.body);
 
     const existeUsuario = await knex('usuarios').where({ email }).first();
@@ -62,6 +57,7 @@ const atualizarUsuario = async (req, res) => {
     if (!authorization) {
         return res.status(404).json({ message: 'Token não informado!' })
     }
+    console.log(authorization);
 
     try {
         await editarUsuarioSchema.validate(req.body);
