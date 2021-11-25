@@ -12,12 +12,8 @@ const login = async (req, res) => {
 
         const usuarios = await knex('usuarios').where('email', email);
 
-        if (usuarios === []) {
-            return res.status(400).json("teste");
-        }
-
         if (!usuarios) {
-            return res.status(400).json("O usuario não foi encontrado");
+            return res.status(400).json({ message: "Usuário não encontrado" });
         }
 
         const usuario = await knex('usuarios').where('email', email).first();
@@ -25,7 +21,7 @@ const login = async (req, res) => {
         const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
         if (!senhaCorreta) {
-            return res.status(400).json("Email ou senha não conferem");
+            return res.status(400).json({ message: "Email ou senha não conferem" });
         }
 
         const token = jwt.sign({ id: usuario.id }, senhaHash, { expiresIn: '8h' });
@@ -37,7 +33,7 @@ const login = async (req, res) => {
             token
         });
     } catch (error) {
-        return res.status(400).json(error.message);
+        return res.status(400).json({ message: 'Erro inesperado - ' + error.message });
     }
 }
 
