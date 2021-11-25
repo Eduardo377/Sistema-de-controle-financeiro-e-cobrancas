@@ -57,8 +57,6 @@ const atualizarUsuario = async(req, res) => {
             }
         });
 
-        console.log(dados)
-
         return res.status(200).json(dados);
 
     } catch (error) {
