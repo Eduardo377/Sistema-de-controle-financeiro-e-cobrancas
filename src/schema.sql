@@ -13,7 +13,7 @@ create table if not exists usuarios (
 
 drop table if exists clientes;
 
-create table if not exists cliente (
+create table if not exists clientes (
 	id serial primary key,
 	usuario_id integer not null,
 	nome text not null,
