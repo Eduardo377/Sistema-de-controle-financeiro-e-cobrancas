@@ -49,7 +49,7 @@ const atualizarUsuario = async (req, res) => {
         await editarUsuarioSchema.validate(req.body);
 
         const token = authorization.replace('Bearer', '').trim();
-        const { id } = jwt.verify(token, key,)
+        const { id } = jwt.verify(token, key)
 
         const usuario = await knex('usuarios').where({ id }).update({ nome, email, senha, cpf, tel }).returning('*');
 
