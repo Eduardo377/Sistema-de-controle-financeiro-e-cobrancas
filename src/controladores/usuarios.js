@@ -12,7 +12,7 @@ const cadastrarUsuario = async (req, res) => {
         const existeUsuario = await knex('usuarios').where({ email }).first();
 
         if (existeUsuario) {
-            return res.status(400).json("O email já existe");
+            return res.status(400).json({ message: "O email já existe" });
         }
 
         const senhaCriptografada = await bcrypt.hash(senha, 10);
@@ -28,22 +28,43 @@ const cadastrarUsuario = async (req, res) => {
         const usuario = await knex('usuarios').insert(dados).returning('*');
 
         if (!usuario) {
-            return res.status(400).json("O usuário não foi cadastrado.");
+            return res.status(400).json({ message: "O usuário não foi cadastrado." });
         }
 
-        return res.status(200).json("Usuario Cadastrado com Sucesso!");
+        return res.status(200).json({ message: "Usuario Cadastrado com Sucesso!" });
     } catch (error) {
-        return res.status(400).json(error.message);
+        return res.status(400).json({ message: 'Erro inesperado - ' + error.message });
     }
 }
 
-const editarUsuario = async (req, res) => {
-    await editarUsuarioSchema.validate(req.body);
+const atualizarUsuario = async (req, res) => {
+    const { nome, email, cpf, tel, senha } = req.body;
+    const { id } = req.params;
 
-}
+    try {
+        await editarUsuarioSchema.validate(req.body);
 
+        const usuario = await knex('usuarios').where({ id }).update({ nome, email, senha, cpf, tel }).returning('*');
+
+        // const dados = usuario.map((user) => {
+        //     return {
+        //         id: user.id,
+        //         nome: user.nome,
+        //         email: user.email,
+        //         cpf: user.cpf,
+        //         tel: user.tel
+        //     }
+        // });
+
+        return res.status(200).json({ message: 'Usuário Editado com Sucesso!' });
+
+    } catch (error) {
+        return res.status(500).json({ message: 'Erro inesperado - ' + error.message });
+    };
+};
 
 module.exports = {
     cadastrarUsuario,
-    editarUsuario
-}
+    atualizarUsuario
+};
+
