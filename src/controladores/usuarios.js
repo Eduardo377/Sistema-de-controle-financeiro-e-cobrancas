@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const key = require('../senhaHash');
 
 const verificarEmail = async (req, res) => {
-    const { nome, email } = req.body;
+    const { email, nome } = req.body;
 
     try {
         await verificarEmailSchema.validate(req.body);
@@ -17,6 +17,8 @@ const verificarEmail = async (req, res) => {
         if (existeUsuario) {
             return res.status(400).json({ message: "O email já existe" });
         }
+
+	return res.status(200).json({ message: "e-mail válido"});
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }
