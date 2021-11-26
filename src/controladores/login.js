@@ -10,13 +10,11 @@ const login = async (req, res) => {
     try {
         await loginSchema.validate(req.body);
 
-        const usuarios = await knex('usuarios').where('email', email);
+        const usuario = await knex('usuarios').where('email', email).first();
 
-        if (!usuarios) {
+        if (!usuario) {
             return res.status(400).json({ message: "Usuário não encontrado" });
         }
-
-        const usuario = await knex('usuarios').where('email', email).first();
 
         const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
@@ -33,7 +31,7 @@ const login = async (req, res) => {
             token
         });
     } catch (error) {
-        return res.status(400).json({ message: 'Erro inesperado - ' + error.message });
+        return res.status(400).json({ message: error.message });
     }
 }
 
