@@ -11,10 +11,6 @@ rotas.post('/login', login.login);
 
 rotas.use(verificaLogin);
 
-<<<<<<< HEAD
 rotas.put('/usuarios', usuarios.atualizarUsuario);
-=======
-rotas.put('/usuario/:id', usuarios.atualizarUsuario);
->>>>>>> back_daniel
 
 module.exports = rotas;
