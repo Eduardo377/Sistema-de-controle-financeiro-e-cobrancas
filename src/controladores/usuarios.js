@@ -11,7 +11,6 @@ const verificarEmail = async(req, res, next) => {
     if (!email) {
         return;
     };
-    await cadastroUsuarioSchema.validate(req.body);
 
     const existeUsuario = await knex('usuarios').where({ email }).first();
 
@@ -55,7 +54,7 @@ const cadastrarUsuario = async(req, res) => {
     }
 }
 
-const atualizarUsuario = async (req, res) => {
+const atualizarUsuario = async(req, res) => {
     const { authorization } = req.headers;
     const { nome, email, cpf, tel, senha } = req.body;
 
