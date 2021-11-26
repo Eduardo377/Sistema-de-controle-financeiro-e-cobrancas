@@ -6,6 +6,7 @@ const verificaLogin = require('./filtros/verificaLogin');
 const rotas = express();
 
 rotas.get('/usuarios', usuarios.verificarEmail);
+
 rotas.post('/usuarios', usuarios.cadastrarUsuario);
 rotas.post('/login', login.login);
 
