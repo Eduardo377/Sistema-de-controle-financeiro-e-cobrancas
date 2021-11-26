@@ -6,7 +6,7 @@ const verificaLogin = async (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-        return res.status(401).json('Não autorizado');
+        return res.status(401).json({ message: 'Não autorizado' });
     }
 
     try {
@@ -17,7 +17,7 @@ const verificaLogin = async (req, res, next) => {
         const usuarioSelect = await knex('usuarios').where('id', id).first();
 
         if (!usuarioSelect) {
-            return res.status(404).json('Usuario não encontrado');
+            return res.status(404).json({message: 'Usuario não encontrado'});
         }
 
         const { senha, ...usuario } = usuarioSelect;
@@ -26,7 +26,7 @@ const verificaLogin = async (req, res, next) => {
 
         next();
     } catch (error) {
-        return res.status(400).json(error.message);
+        return res.status(400).json({message: error.message});
     }
 }
 
