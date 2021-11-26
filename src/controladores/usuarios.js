@@ -76,7 +76,7 @@ const atualizarUsuario = async (req, res) => {
             return res.status(400).json({ message: "O email já existe" });
         }
 
-        const usuario = await knex('usuarios').where({ id }).update({ nome, email, senha, cpf, tel }).returning('*');
+        await knex('usuarios').where({ id }).update({ nome, email, senha, cpf, tel }).returning('*');
 
         return res.status(200).json({ message: 'Usuário Editado com Sucesso!' });
 
