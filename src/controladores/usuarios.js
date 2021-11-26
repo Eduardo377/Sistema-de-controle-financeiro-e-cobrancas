@@ -58,7 +58,7 @@ const cadastrarUsuario = async (req, res) => {
     }
 }
 
-const atualizarUsuario = async (req, res) => {
+const atualizarUsuario = async(req, res) => {
     const { authorization } = req.headers;
     const { nome, email, cpf, tel, senha } = req.body;
 
