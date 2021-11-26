@@ -63,7 +63,6 @@ const atualizarUsuario = async (req, res) => {
     if (!authorization) {
         return res.status(404).json({ message: 'Token não informado!' })
     }
-    console.log(authorization);
 
     try {
         await editarUsuarioSchema.validate(req.body);
