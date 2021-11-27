@@ -6,8 +6,8 @@ const knex = require('../conexao');
 const jwt = require('jsonwebtoken');
 const key = require('../senhaHash');
 
-const verificarEmail = async (req, res) => {
-    const { nome, email } = req.body;
+const verificarEmail = async(req, res) => {
+    const { email } = req.body;
 
     try {
         await verificarEmailSchema.validate(req.body);
@@ -17,12 +17,15 @@ const verificarEmail = async (req, res) => {
         if (existeUsuario) {
             return res.status(400).json({ message: "O email já existe" });
         }
+
+        return res.status(200).json({ message: "email disponivel" });
+
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }
 }
 
-const cadastrarUsuario = async (req, res) => {
+const cadastrarUsuario = async(req, res) => {
     const { nome, email, senha, cpf, tel } = req.body;
 
     try {
@@ -70,13 +73,15 @@ const atualizarUsuario = async(req, res) => {
         const token = authorization.replace('Bearer', '').trim();
         const { id } = jwt.verify(token, key)
 
-        const existeUsuario = await knex('usuarios').where({ email }).first();
+        if (email) {
+            const existeUsuario = await knex('usuarios').where({ email }).first();
 
-        if (existeUsuario) {
-            return res.status(400).json({ message: "O email já existe" });
+            if (existeUsuario) {
+                return res.status(400).json({ message: "O email já existe" });
+            }
         }
 
-        const usuario = await knex('usuarios').where({ id }).update({ nome, email, senha, cpf, tel }).returning('*');
+        knex('usuarios').where({ id }).update({ nome, email, senha, cpf, tel }).returning('*');
 
         return res.status(200).json({ message: 'Usuário Editado com Sucesso!' });
 
