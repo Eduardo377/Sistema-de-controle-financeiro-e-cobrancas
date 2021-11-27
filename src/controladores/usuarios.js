@@ -77,8 +77,17 @@ const atualizarUsuario = async(req, res) => {
         if (existeUsuario) {
             return res.status(400).json({ message: "O email já existe" });
         }
+        const passw = await bcrypt.hash(senha, 10)
 
-        await knex('usuarios').where({ id }).update({ nome, email, senha, cpf, tel }).returning('*');
+        const dados = {
+            nome,
+            email,
+            senha: passw,
+            cpf,
+            tel
+        }
+
+        await knex('usuarios').where({ id }).update(dados).returning('*');
 
         return res.status(200).json({ message: 'Usuário Editado com Sucesso!' });
 
