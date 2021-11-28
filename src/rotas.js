@@ -19,4 +19,6 @@ rotas.post('/cliente', cliente.cadastrarClientes);
 
 rotas.get('/usuario', usuarios.obterUsuario);
 
+rotas.get('/clientes', cliente.detalharClientes)
+
 module.exports = rotas;

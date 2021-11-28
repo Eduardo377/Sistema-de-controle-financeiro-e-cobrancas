@@ -34,7 +34,13 @@ const cadastrarClientes = async function(req, res) {
     } catch (error) {
         res.status(400).json(error.message);
     }
+};
+
+const detalharClientes = async(req, res) => {
+    const clientes = await knex('clientes').returning('*');
+    return res.status(200).json(clientes);
 }
 module.exports = {
-    cadastrarClientes
+    cadastrarClientes,
+    detalharClientes
 }
