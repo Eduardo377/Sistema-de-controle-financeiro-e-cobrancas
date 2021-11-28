@@ -14,6 +14,8 @@ const verificarEmail = async (req, res) => {
 
         await knex('usuarios').where({ email }).first();
 
+        const existeUsuario = await knex('usuarios').where({ email }).first();
+        
         if (existeUsuario) {
             return res.status(400).json({ message: "O email já existe" });
         }
