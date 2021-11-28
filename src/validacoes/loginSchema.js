@@ -8,8 +8,6 @@ const loginSchema = yup.object().shape({
     senha: yup
         .string()
         .required()
-        .min(5)
-        .max(10)
 });
 
 module.exports = loginSchema;

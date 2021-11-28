@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const senhaHash = require('../senhaHash');
 const loginSchema = require('../validacoes/loginSchema');
 
-const login = async (req, res) => {
+const login = async(req, res) => {
     const { email, senha } = req.body;
 
     try {
@@ -22,7 +22,7 @@ const login = async (req, res) => {
             return res.status(400).json({ message: "Email ou senha não conferem" });
         }
 
-        const token = jwt.sign({ id: usuario.id }, senhaHash, { expiresIn: '8h' });
+        const token = jwt.sign({ id: usuario.id, nome: usuario.nome }, senhaHash, { expiresIn: '8h' });
 
         const { senha: _, ...dadosUsuario } = usuario;
 
