@@ -31,5 +31,8 @@
     "pg": "^8.7.1",
     "yup": "^0.32.11",
     "yup-locales": "^1.2.0"
+  },
+  "devDependencies": {
+    "sqlite3": "^5.0.2"
   }
 }

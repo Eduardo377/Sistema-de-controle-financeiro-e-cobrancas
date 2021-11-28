@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const senhaHash = require('../senhaHash');
 const loginSchema = require('../validacoes/loginSchema');
 
-const login = async (req, res) => {
+const login = async(req, res) => {
     const { email, senha } = req.body;
 
     try {
