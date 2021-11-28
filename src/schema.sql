@@ -18,6 +18,7 @@ create table if not exists clientes (
 	usuario_id integer not null,
 	nome text not null,
 	cpf integer,
+	email text,
 	telefone text,
 	endereco text,
 	complemento text,

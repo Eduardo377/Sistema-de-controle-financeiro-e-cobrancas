@@ -8,8 +8,6 @@ const verificarEmailSchema = yup.object().shape({
     nome: yup
         .string()
         .required()
-        .min(3)
-        .max(10)
 });
 
 module.exports = verificarEmailSchema;

@@ -3,9 +3,7 @@ const yup = require('./yup');
 const verificaNomeSchema = yup.object().shape({
     nome: yup
         .string()
-        .required()
-        .min(3)
-        .max(10),
+        .required(),
     email: yup
         .string()
         .email()
