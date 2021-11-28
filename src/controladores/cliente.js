@@ -1,13 +1,13 @@
-const conexao = require('../conexao');
+const knex = require('../conexao');
 const bcrypt = require('bcrypt');
-const { default: knex } = require('knex');
 const cadastroClienteSchema = require('../validacoes/cadastrarClienteSchema');
 const cadastrarClientes = async function(req, res) {
     const {
         nome,
         cpf,
         telefone,
-        enderenço,
+        email,
+        endereco,
         complemento,
         cep,
         bairro,
@@ -19,15 +19,16 @@ const cadastrarClientes = async function(req, res) {
         await cadastroClienteSchema.validate(req.body);
         const cliente = await knex('clientes').insert({
             usuario_id: usuarioID,
-            nome,
-            cpf,
-            telefone,
-            enderenço,
-            complemento,
-            cep,
-            bairro,
-            cidade,
-            uf
+            nome: nome,
+            cpf: cpf,
+            telefone: telefone,
+            email: email,
+            endereco: endereco,
+            complemento: complemento,
+            cep: cep,
+            bairro: bairro,
+            cidade: cidade,
+            uf: uf
         }).returning('*');
         return res.status(201).json(cliente);
     } catch (error) {

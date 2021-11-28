@@ -31,6 +31,8 @@ const cadastrarUsuario = async(req, res) => {
     try {
         await cadastroUsuarioSchema.validate(req.body);
 
+
+
         const existeUsuario = await knex('usuarios').where({ email }).first();
 
         if (existeUsuario) {
@@ -72,6 +74,8 @@ const atualizarUsuario = async(req, res) => {
 
         const token = authorization.replace('Bearer', '').trim();
         const { id } = jwt.verify(token, key)
+
+
 
         if (email) {
             const existeUsuario = await knex('usuarios').where({ email }).first();

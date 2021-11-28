@@ -10,7 +10,10 @@ const cadastroClienteSchema = yup.object().shape({
     telefone: yup
         .string()
         .required(),
-    enderenço: yup
+    email: yup
+        .string()
+        .required(),
+    endereco: yup
         .string(),
     complemento: yup
         .string(),
@@ -19,11 +22,9 @@ const cadastroClienteSchema = yup.object().shape({
     bairro: yup
         .string(),
     cidade: yup
-        .string()
-        .required(),
+        .string(),
     uf: yup
-        .string()
-        .required(),
+        .string(),
 });
 
 module.exports = cadastroClienteSchema;
