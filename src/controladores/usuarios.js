@@ -20,7 +20,7 @@ const verificarEmail = async (req, res) => {
             return res.status(400).json({ message: "O email já existe" });
         }
 
-        return res.status(200).json({ message: "e-mail válido" });
+	return res.status(200).json({ message: "e-mail válido"});
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }
