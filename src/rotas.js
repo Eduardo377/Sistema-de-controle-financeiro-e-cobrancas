@@ -18,4 +18,6 @@ rotas.put('/usuarios', usuarios.atualizarUsuario);
 
 rotas.post('/cliente', cliente.cadastrarClientes);
 
+rotas.get('/usuario', usuarios.obterUsuario);
+
 module.exports = rotas;
