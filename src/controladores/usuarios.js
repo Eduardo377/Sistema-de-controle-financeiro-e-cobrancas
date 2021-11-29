@@ -77,16 +77,28 @@ const atualizarUsuario = async(req, res) => {
         const token = authorization.replace('Bearer', '').trim();
         const { id } = jwt.verify(token, key)
 
-        const existeUsuario = await knex('usuarios').where({ email }).first();
+        const existeEmail = await knex('usuarios').where({ email }).first();
 
-        if (existeUsuario && Number(existeUsuario.id !== Number(id))) {
+        if (existeEmail && Number(existeEmail.id !== Number(id))) {
             return res.status(400).json({ message: "O email já existe" });
         }
 
-        if (existeUsuario && Number(existeUsuario.id) !== Number(id)) {
+        if (existeEmail && Number(existeEmail.id) !== Number(id)) {
             return res
                 .status(400)
                 .json({ message: "Email já cadastrado", field: "email" });
+        }
+
+        const existeCPF = await knex('usuarios').where({ cpf }).first();
+
+        if (existeCPF && Number(existeCPF.id !== Number(id))) {
+            return res.status(400).json({ message: "O CPF já existe" });
+        }
+
+        if (existeCPF && Number(existeCPF.id) !== Number(id)) {
+            return res
+                .status(400)
+                .json({ message: "CPF já cadastrado", field: "cpf" });
         }
 
         let hashNovaSenha = "";
@@ -117,5 +129,6 @@ module.exports = {
     cadastrarUsuario,
     atualizarUsuario,
     verificarEmail,
-    obterUsuario
+    obterUsuario,
+    verificarCpf
 };
