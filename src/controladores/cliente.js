@@ -1,5 +1,7 @@
 const knex = require('../conexao');
+const verificarEmailSchema = require('../validacoes/verificarEmailSchema');
 const cadastroClienteSchema = require('../validacoes/cadastrarClienteSchema');
+
 const cadastrarClientes = async function(req, res) {
     const {
         nome,
@@ -15,6 +17,20 @@ const cadastrarClientes = async function(req, res) {
     } = req.body;
     const usuarioID = req.usuario.id;
     try {
+
+        if (email) {
+            await verificarEmailSchema.validate(req.body);
+
+            await knex('clientes').where({ email }).first();
+
+            const existeEmail = await knex('clientes').where({ email }).first();
+
+            if (existeEmail) {
+                return res.status(400).json({ message: "O email já existe" });
+            }
+
+            return res.status(200).json({ message: "email disponivel" });
+        };
         await cadastroClienteSchema.validate(req.body);
         const cliente = await knex('clientes').insert({
             usuario_id: usuarioID,

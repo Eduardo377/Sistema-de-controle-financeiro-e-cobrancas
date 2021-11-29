@@ -27,6 +27,27 @@ const verificarEmail = async(req, res) => {
     }
 }
 
+const verificarCpf = async(req, res) => {
+    const { cpf } = req.body;
+
+    try {
+        await verificarEmailSchema.validate(req.body);
+
+        await knex('usuarios').where({ cpf }).first();
+
+        const existeUsuario = await knex('usuarios').where({ cpf }).first();
+
+        if (existeUsuario) {
+            return res.status(400).json({ message: "O CPF já existe" });
+        }
+
+        return res.status(200).json({ message: "CPF disponivel" });
+
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+}
+
 const cadastrarUsuario = async(req, res) => {
     const { nome, email, senha, cpf, tel } = req.body;
 
@@ -81,25 +102,7 @@ const atualizarUsuario = async(req, res) => {
 
         if (existeEmail && Number(existeEmail.id !== Number(id))) {
             return res.status(400).json({ message: "O email já existe" });
-        }
-
-        if (existeEmail && Number(existeEmail.id) !== Number(id)) {
-            return res
-                .status(400)
-                .json({ message: "Email já cadastrado", field: "email" });
-        }
-
-        const existeCPF = await knex('usuarios').where({ cpf }).first();
-
-        if (existeCPF && Number(existeCPF.id !== Number(id))) {
-            return res.status(400).json({ message: "O CPF já existe" });
-        }
-
-        if (existeCPF && Number(existeCPF.id) !== Number(id)) {
-            return res
-                .status(400)
-                .json({ message: "CPF já cadastrado", field: "cpf" });
-        }
+        };
 
         let hashNovaSenha = "";
         let dadosASerAtualizado = { nome: nome || null, email, cpf: cpf || null, tel: tel || null };
@@ -107,7 +110,7 @@ const atualizarUsuario = async(req, res) => {
         if (senha) {
             hashNovaSenha = await bcrypt.hash(senha, 10);
             dadosASerAtualizado.senha = hashNovaSenha;
-        }
+        };
 
         await knex("usuarios")
             .where({ id })
