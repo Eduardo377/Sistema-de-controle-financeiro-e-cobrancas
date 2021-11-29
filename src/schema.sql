@@ -17,7 +17,7 @@ create table if not exists clientes (
 	id serial primary key,
 	usuario_id integer not null,
 	nome text not null,
-	cpf text,
+	cpf text unique,
 	telefone text,
 	email text not null unique,
 	endereco text,
