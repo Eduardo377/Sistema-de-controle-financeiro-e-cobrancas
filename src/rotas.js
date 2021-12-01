@@ -1,9 +1,9 @@
 const express = require('express');
-const usuarios = require('./controladores/usuarios');
-const login = require('./controladores/login');
+const usuarios = require('./controladores/usuarios/usuarios');
+const login = require('./controladores/login/login');
 const verificaLogin = require('./filtros/verificaLogin');
 
-const clientes = require('./controladores/clientes');
+const clientes = require('./controladores/clientes/clientes');
 
 const rotas = express();
 
