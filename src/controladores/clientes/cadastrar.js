@@ -1,5 +1,5 @@
-const knex = require('../conexao');
-const cadastroClienteSchema = require('../validacoes/cadastrarClienteSchema');
+const knex = require('../../conexao');
+const cadastroClienteSchema = require('../../validacoes/cadastrarClienteSchema');
 
 const cadastrarClientes = async function (req, res) {
     const {
@@ -58,12 +58,4 @@ const cadastrarClientes = async function (req, res) {
     }
 };
 
-const detalharClientes = async (req, res) => {
-    const clientes = await knex('clientes').returning('*');
-    return res.status(200).json(clientes);
-}
-
-module.exports = {
-    cadastrarClientes,
-    detalharClientes
-}
+module.exports = { cadastrarClientes };
