@@ -25,26 +25,8 @@ const verificarEmail = async (req, res) => {
     }
 }
 
-const verificarCpf = async (req, res) => {
-    const { cpf } = req.body;
-
-    try {
-        await knex('usuarios').where({ cpf }).first();
-
-        const existeUsuario = await knex('usuarios').where({ cpf }).first();
-
-        if (existeUsuario) {
-            return res.status(400).json({ message: "O CPF já existe" });
-        }
-
-        return res.status(200).json({ message: "CPF disponivel" });
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
-    }
-}
-
 const cadastrarUsuario = async (req, res) => {
-    const { nome, email, senha, cpf, tel } = req.body;
+    const { nome, email, senha } = req.body;
 
     try {
         await cadastroUsuarioSchema.validate(req.body);
@@ -55,14 +37,13 @@ const cadastrarUsuario = async (req, res) => {
             return res.status(400).json({ message: "O email já existe" });
         }
 
+
         const senhaCriptografada = await bcrypt.hash(senha, 10);
 
         const dados = {
             nome,
             email,
-            senha: senhaCriptografada,
-            cpf,
-            tel
+            senha: senhaCriptografada
         }
 
         const usuario = await knex('usuarios').insert(dados).returning('*');
@@ -97,6 +78,12 @@ const atualizarUsuario = async (req, res) => {
             return res.status(400).json({ message: "O email já existe" });
         };
 
+        const existeCpf = await knex('usuarios').where({ cpf }).first();
+
+        if (existeCpf) {
+            return res.status(400).json({ message: "O email já existe" });
+        }
+
         let hashNovaSenha = "";
         let dadosASerAtualizado = { nome: nome || null, email, cpf: cpf || null, tel: tel || null };
 
@@ -120,11 +107,9 @@ const obterUsuario = (req, res) => {
     return res.status(200).json(req.usuario);
 }
 
-
 module.exports = {
     cadastrarUsuario,
     atualizarUsuario,
     verificarEmail,
-    obterUsuario,
-    verificarCpf
+    obterUsuario
 };
