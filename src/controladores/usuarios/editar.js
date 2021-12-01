@@ -32,7 +32,7 @@ const editarUsuario = async (req, res) => {
             if (existeCpf && Number(existeCpf.id !== Number(id))) {
                 return res.status(400).json({
                     message: "O cpf já existe",
-                    field: "email"
+                    field: "cpf"
                 });
             };
         };
