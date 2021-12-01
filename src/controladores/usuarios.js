@@ -37,7 +37,10 @@ const cadastrarUsuario = async (req, res) => {
         const existeUsuario = await knex('usuarios').where({ email }).first();
 
         if (existeUsuario) {
-            return res.status(400).json({ message: "O email já existe" });
+            return res.status(400).json({ 
+                message: "O email já existe",
+                field: "email"
+            });
         }
 
 
@@ -78,14 +81,17 @@ const atualizarUsuario = async (req, res) => {
         const existeEmail = await knex('usuarios').where({ email }).first();
 
         if (existeEmail && Number(existeEmail.id !== Number(id))) {
-            return res.status(400).json({ message: "O email já existe" });
+            return res.status(400).json({ 
+                message: "O email já existe",
+                field: "email"
+            });
         };
 
         const existeCpf = await knex('usuarios').where({ cpf }).first();
 
         if (existeCpf) {
             return res.status(400).json({
-                message: "O email já existe",
+                message: "O cpf já está cadastrado!",
                 field: "cpf"
             });
         }

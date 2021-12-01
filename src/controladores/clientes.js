@@ -23,13 +23,20 @@ const cadastrarClientes = async function (req, res) {
         const existeEmail = await knex('clientes').where({ email }).first();
 
         if (existeEmail) {
-            return res.status(400).json({ message: "O email já existe!" });
+            return res.status(400).json({
+                message: "O email já existe!",
+                field: "email"
+
+            });
         }
 
         const existeCpf = await knex('clientes').where({ cpf }).first();
 
         if (existeCpf) {
-            return res.status(400).json({ message: "O cpf já está cadastrado!" });
+            return res.status(400).json({
+                message: "O cpf já está cadastrado!",
+                field: "cpf"
+            });
         }
 
         await knex('clientes').insert({
