@@ -17,8 +17,7 @@ const editarUsuario = async (req, res) => {
 
         const existeEmail = await knex('usuarios').where({ email }).first();
 
-        const token = authorization.replace('Bearer', '').trim();
-        const { id } = jwt.verify(token, key)
+        const { id } = req.usuario;
 
         if (existeEmail && Number(existeEmail.id !== Number(id))) {
             return res.status(400).json({
