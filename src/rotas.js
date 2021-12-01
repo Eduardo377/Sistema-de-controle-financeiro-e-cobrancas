@@ -5,7 +5,7 @@ const detalharCliente = require('./controladores/clientes/detalhar');
 const editarUsuario = require('./controladores/usuarios/editar');
 const obterUsuario = require('./controladores/usuarios/obter');
 const verificaLogin = require('./filtros/verificaLogin');
-const login = require('./controladores/usuarios/logar');
+const login = require('./controladores/usuarios/login');
 const express = require('express');
 
 const rotas = express();
