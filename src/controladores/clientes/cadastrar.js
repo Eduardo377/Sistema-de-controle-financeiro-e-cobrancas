@@ -1,5 +1,5 @@
-const knex = require('../../conexao');
 const cadastroClienteSchema = require('../../validacoes/cadastrarClienteSchema');
+const knex = require('../../conexao');
 
 const cadastrarClientes = async function (req, res) {
     const {

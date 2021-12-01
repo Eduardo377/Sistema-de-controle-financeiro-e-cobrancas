@@ -1,12 +1,12 @@
-const express = require('express');
+const verificarEmail = require('./controladores/usuarios/verificarEmail');
 const cadastrarUsuario = require('./controladores/usuarios/cadastrar');
-const obterUsuario = require('./controladores/usuarios/obter');
-const editarUsuario = require('./controladores/usuarios/editar');
 const cadastrarCliente = require('./controladores/clientes/cadastrar');
 const detalharCliente = require('./controladores/clientes/detalhar');
-const verificarEmail = require('./controladores/usuarios/verificarEmail');
-const login = require('./controladores/login/login');
+const editarUsuario = require('./controladores/usuarios/editar');
+const obterUsuario = require('./controladores/usuarios/obter');
 const verificaLogin = require('./filtros/verificaLogin');
+const login = require('./controladores/usuarios/logar');
+const express = require('express');
 
 const rotas = express();
 

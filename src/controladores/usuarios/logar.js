@@ -1,8 +1,8 @@
-const knex = require('../../conexao');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const senhaHash = require('../../senhaHash');
 const loginSchema = require('../../validacoes/loginSchema');
+const senhaHash = require('../../senhaHash');
+const knex = require('../../conexao');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {
     const { email, senha } = req.body;
