@@ -15,7 +15,10 @@ const verificarEmail = async (req, res) => {
         const existeUsuario = await knex('usuarios').where({ email }).first();
 
         if (existeUsuario) {
-            return res.status(400).json({ message: "O email já existe" });
+            return res.status(400).json({
+                message: "O email já existe",
+                field: "email"
+            });
         }
 
         return res.status(200).json({ message: "O email disponível" });
@@ -81,7 +84,10 @@ const atualizarUsuario = async (req, res) => {
         const existeCpf = await knex('usuarios').where({ cpf }).first();
 
         if (existeCpf) {
-            return res.status(400).json({ message: "O email já existe" });
+            return res.status(400).json({
+                message: "O email já existe",
+                field: "cpf"
+            });
         }
 
         let hashNovaSenha = "";
