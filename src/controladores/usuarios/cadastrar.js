@@ -15,7 +15,7 @@ const cadastrarUsuario = async (req, res) => {
                 message: "O email já existe",
                 field: "email"
             });
-        }
+        };
 
         const senhaCriptografada = await bcrypt.hash(senha, 10);
 
@@ -23,7 +23,7 @@ const cadastrarUsuario = async (req, res) => {
             nome,
             email,
             senha: senhaCriptografada
-        }
+        };
 
         const usuario = await knex('usuarios').insert(dados).returning('*');
 

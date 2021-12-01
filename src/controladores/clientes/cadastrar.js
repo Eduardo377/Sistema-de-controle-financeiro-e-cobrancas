@@ -28,7 +28,7 @@ const cadastrarClientes = async function (req, res) {
                 field: "email"
 
             });
-        }
+        };
 
         const existeCpf = await knex('clientes').where({ cpf }).first();
 
@@ -37,7 +37,7 @@ const cadastrarClientes = async function (req, res) {
                 message: "O cpf já está cadastrado!",
                 field: "cpf"
             });
-        }
+        };
 
         await knex('clientes').insert({
             nome: nome,

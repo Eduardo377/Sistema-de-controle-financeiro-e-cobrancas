@@ -14,13 +14,13 @@ const verificarEmail = async (req, res) => {
                 message: "O email já existe",
                 field: "email"
             });
-        }
+        };
 
         return res.status(200).json({ message: "O email disponível" });
 
     } catch (error) {
         return res.status(400).json({ message: error.message });
-    }
-}
+    };
+};
 
 module.exports = { verificarEmail };

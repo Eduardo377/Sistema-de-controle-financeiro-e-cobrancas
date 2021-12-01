@@ -14,13 +14,13 @@ const login = async (req, res) => {
 
         if (!usuario) {
             return res.status(400).json({ message: "Usuário não encontrado" });
-        }
+        };
 
         const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
 
         if (!senhaCorreta) {
             return res.status(400).json({ message: "Email ou senha não conferem" });
-        }
+        };
 
         const token = jwt.sign({ id: usuario.id, nome: usuario.nome }, senhaHash, { expiresIn: '12h' });
 
@@ -30,6 +30,7 @@ const login = async (req, res) => {
             usuario: dadosUsuario,
             token
         });
+
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }

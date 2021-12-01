@@ -9,8 +9,8 @@ const editarUsuario = async (req, res) => {
     const { nome, email, cpf, tel, senha } = req.body;
 
     if (!authorization) {
-        return res.status(404).json({ message: 'Token não informado!' })
-    }
+        return res.status(404).json({ message: 'Token não informado!' });
+    };
 
     try {
         await editarUsuarioSchema.validate(req.body);
@@ -33,8 +33,8 @@ const editarUsuario = async (req, res) => {
                 return res.status(400).json({
                     message: "O cpf já existe",
                     field: "email"
-                })
-            }
+                });
+            };
         };
 
         let hashNovaSenha = "";
