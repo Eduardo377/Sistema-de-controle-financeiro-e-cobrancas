@@ -1,8 +1,8 @@
 const editarUsuarioSchema = require('../../validacoes/editarUsuarioSchema');
-const bcrypt = require('bcrypt');
+const key = require('../../senhaHash');
 const knex = require('../../conexao');
 const jwt = require('jsonwebtoken');
-const key = require('../../senhaHash');
+const bcrypt = require('bcrypt');
 
 const editarUsuario = async (req, res) => {
     const { authorization } = req.headers;
@@ -15,10 +15,10 @@ const editarUsuario = async (req, res) => {
     try {
         await editarUsuarioSchema.validate(req.body);
 
+        const existeEmail = await knex('usuarios').where({ email }).first();
+
         const token = authorization.replace('Bearer', '').trim();
         const { id } = jwt.verify(token, key)
-
-        const existeEmail = await knex('usuarios').where({ email }).first();
 
         if (existeEmail && Number(existeEmail.id !== Number(id))) {
             return res.status(400).json({
@@ -27,14 +27,16 @@ const editarUsuario = async (req, res) => {
             });
         };
 
-        const existeCpf = await knex('usuarios').where({ cpf }).first();
+        if (cpf) {
+            const existeCpf = await knex('usuarios').where({ cpf }).first();
 
-        if (existeCpf) {
-            return res.status(400).json({
-                message: "O cpf já está cadastrado!",
-                field: "cpf"
-            });
-        }
+            if (existeCpf && Number(existeCpf.id !== Number(id))) {
+                return res.status(400).json({
+                    message: "O cpf já existe",
+                    field: "email"
+                })
+            }
+        };
 
         let hashNovaSenha = "";
         let dadosASerAtualizado = { nome: nome || null, email, cpf: cpf || null, tel: tel || null };
