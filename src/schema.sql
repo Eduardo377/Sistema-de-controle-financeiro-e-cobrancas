@@ -15,7 +15,6 @@ drop table if exists clientes;
 
 create table if not exists clientes (
 	id serial primary key,
-	usuario_id integer not null,
 	nome text not null,
 	cpf text unique,
 	telefone text,
@@ -25,6 +24,18 @@ create table if not exists clientes (
 	cep text,
 	bairro text,
 	cidade text,
-	uf text,
-	foreign key (usuario_id) references usuarios (id)
+	uf text
 );
+
+drop table if exists cobrancas;
+
+create table if not exists cobrancas (
+	id serial primary key,
+	cliente_id integer not null,
+	descricao text not null,
+	paga boolean not null,
+  	valor text not null,
+  	data_vencimento text not null,
+  	foreign key (cliente_id) references clientes (id)
+);
+
