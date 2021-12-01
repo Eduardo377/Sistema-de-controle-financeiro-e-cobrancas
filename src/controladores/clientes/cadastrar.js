@@ -1,5 +1,5 @@
-const knex = require('../conexao');
-const cadastroClienteSchema = require('../validacoes/cadastrarClienteSchema');
+const cadastroClienteSchema = require('../../validacoes/cadastrarClienteSchema');
+const knex = require('../../conexao');
 
 const cadastrarClientes = async function (req, res) {
     const {
@@ -28,7 +28,7 @@ const cadastrarClientes = async function (req, res) {
                 field: "email"
 
             });
-        }
+        };
 
         const existeCpf = await knex('clientes').where({ cpf }).first();
 
@@ -37,7 +37,7 @@ const cadastrarClientes = async function (req, res) {
                 message: "O cpf já está cadastrado!",
                 field: "cpf"
             });
-        }
+        };
 
         await knex('clientes').insert({
             nome: nome,
@@ -58,12 +58,4 @@ const cadastrarClientes = async function (req, res) {
     }
 };
 
-const detalharClientes = async (req, res) => {
-    const clientes = await knex('clientes').returning('*');
-    return res.status(200).json(clientes);
-}
-
-module.exports = {
-    cadastrarClientes,
-    detalharClientes
-}
+module.exports = { cadastrarClientes };

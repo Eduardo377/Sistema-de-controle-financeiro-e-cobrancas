@@ -1,22 +1,25 @@
-const express = require('express');
-const usuarios = require('./controladores/usuarios/usuarios');
-const login = require('./controladores/login/login');
+const verificarEmail = require('./controladores/usuarios/verificarEmail');
+const cadastrarUsuario = require('./controladores/usuarios/cadastrar');
+const cadastrarCliente = require('./controladores/clientes/cadastrar');
+const detalharCliente = require('./controladores/clientes/detalhar');
+const editarUsuario = require('./controladores/usuarios/editar');
+const obterUsuario = require('./controladores/usuarios/obter');
 const verificaLogin = require('./filtros/verificaLogin');
-
-const clientes = require('./controladores/clientes/clientes');
+const login = require('./controladores/usuarios/login');
+const express = require('express');
 
 const rotas = express();
 
-rotas.post('/email', usuarios.verificarEmail);
-rotas.post('/usuarios', usuarios.cadastrarUsuario);
+rotas.post('/email', verificarEmail.verificarEmail);
+rotas.post('/usuarios', cadastrarUsuario.cadastrarUsuario);
 rotas.post('/login', login.login);
 
 rotas.use(verificaLogin);
 
-rotas.get('/usuario', usuarios.obterUsuario);
-rotas.put('/usuarios', usuarios.atualizarUsuario);
+rotas.get('/usuarios', obterUsuario.obterUsuario);
+rotas.put('/usuarios', editarUsuario.editarUsuario);
 
-rotas.get('/clientes', clientes.detalharClientes)
-rotas.post('/clientes', clientes.cadastrarClientes);
+rotas.get('/clientes', detalharCliente.detalharClientes);
+rotas.post('/clientes', cadastrarCliente.cadastrarClientes);
 
 module.exports = rotas;

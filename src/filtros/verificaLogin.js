@@ -1,8 +1,8 @@
-const knex = require('../conexao');
-const jwt = require('jsonwebtoken');
 const senhaHash = require('../senhaHash');
+const jwt = require('jsonwebtoken');
+const knex = require('../conexao');
 
-const verificaLogin = async(req, res, next) => {
+const verificaLogin = async (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
