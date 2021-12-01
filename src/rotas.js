@@ -16,7 +16,7 @@ rotas.post('/login', login.login);
 
 rotas.use(verificaLogin);
 
-rotas.get('/usuario', obterUsuario.obterUsuario);
+rotas.get('/usuarios', obterUsuario.obterUsuario);
 rotas.put('/usuarios', editarUsuario.editarUsuario);
 
 rotas.get('/clientes', detalharCliente.detalharClientes);
