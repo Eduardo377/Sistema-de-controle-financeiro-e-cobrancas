@@ -14,13 +14,13 @@ const verificaLogin = async(req, res, next) => {
 
         const { id } = jwt.verify(token, senhaHash);
 
-        const usuarioSelect = await knex('usuarios').where('id', id).first();
+        const usuarioExiste = await knex('usuarios').where('id', id).first();
 
-        if (!usuarioSelect) {
+        if (!usuarioExiste) {
             return res.status(404).json({ message: 'Usuario não encontrado' });
         }
 
-        const { senha, ...usuario } = usuarioSelect;
+        const { senha, ...usuario } = usuarioExiste;
 
         req.usuario = usuario;
 

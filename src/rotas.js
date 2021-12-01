@@ -3,7 +3,7 @@ const usuarios = require('./controladores/usuarios');
 const login = require('./controladores/login');
 const verificaLogin = require('./filtros/verificaLogin');
 
-const cliente = require('./controladores/cliente');
+const clientes = require('./controladores/clientes');
 
 const rotas = express();
 
@@ -13,12 +13,10 @@ rotas.post('/login', login.login);
 
 rotas.use(verificaLogin);
 
+rotas.get('/usuario', usuarios.obterUsuario);
 rotas.put('/usuarios', usuarios.atualizarUsuario);
 
-rotas.post('/cliente', cliente.cadastrarClientes);
-
-rotas.get('/usuario', usuarios.obterUsuario);
-
-rotas.get('/clientes', cliente.detalharClientes)
+rotas.get('/clientes', clientes.detalharClientes)
+rotas.post('/clientes', clientes.cadastrarClientes);
 
 module.exports = rotas;
