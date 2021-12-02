@@ -4,7 +4,7 @@ const knex = require('../../conexao');
 const editarCliente = async (req, res) => {
     const { id } = req.params;
 
-    return res.status(200).json(id)
+    
     const {
         nome,
         cpf,
