@@ -1,11 +1,18 @@
 const verificarEmail = require('./controladores/usuarios/verificarEmail');
+
 const cadastrarUsuario = require('./controladores/usuarios/cadastrar');
-const cadastrarCliente = require('./controladores/clientes/cadastrar');
-const detalharCliente = require('./controladores/clientes/detalhar');
 const editarUsuario = require('./controladores/usuarios/editar');
 const obterUsuario = require('./controladores/usuarios/obter');
+
+const cadastrarCliente = require('./controladores/clientes/cadastrar');
+const listarClientes = require('./controladores/clientes/listar');
+const detalharCliente = require('./controladores/clientes/detalhar')
+const editarCliente = require('./controladores/clientes/editar');
+
 const cadastrarCobrancas = require('./controladores/cobrancas/cadastrar');
+
 const verificaLogin = require('./filtros/verificaLogin');
+
 const login = require('./controladores/usuarios/login');
 const express = require('express');
 
@@ -20,8 +27,10 @@ rotas.use(verificaLogin);
 rotas.get('/usuarios', obterUsuario.obterUsuario);
 rotas.put('/usuarios', editarUsuario.editarUsuario);
 
-rotas.get('/clientes', detalharCliente.detalharClientes);
 rotas.post('/clientes', cadastrarCliente.cadastrarClientes);
+rotas.get('/clientes', listarClientes.listarClientes);
+rotas.get('/clientes/:id', detalharCliente.detalharCliente);
+rotas.put('/clientes/:id', editarCliente.editarCliente);
 
 rotas.post('/cobrancas', cadastrarCobrancas.cadastrarCobrancas);
 
