@@ -23,7 +23,7 @@ const editarCliente = async(req, res) => {
         if (Number(existeCpf.id !== id)) {
             return res.status(400).json({
                 message: "CPF já cadastrado",
-                fiel: "CPF"
+                field: "CPF"
             })
         }
 
@@ -31,7 +31,7 @@ const editarCliente = async(req, res) => {
         if (Number(existeEmail.id !== id)) {
             return res.status(400).json({
                 message: "E-mail já cadastrado",
-                fiel: "email"
+                field: "email"
             })
         }
         const existeId = await knex('clientes').where({ id }).first();
