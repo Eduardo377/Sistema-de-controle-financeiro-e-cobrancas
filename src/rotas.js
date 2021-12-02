@@ -5,8 +5,8 @@ const editarUsuario = require('./controladores/usuarios/editar');
 const obterUsuario = require('./controladores/usuarios/obter');
 
 const cadastrarCliente = require('./controladores/clientes/cadastrar');
-const detalharCliente = require('./controladores/clientes/detalhar');
-const detalharUmCliente = require('./controladores/clientes/detalharUmCliente')
+const listarClientes = require('./controladores/clientes/listar');
+const detalharCliente = require('./controladores/clientes/detalhar')
 const editarCliente = require('./controladores/clientes/editar');
 
 const cadastrarCobrancas = require('./controladores/cobrancas/cadastrar');
@@ -28,8 +28,8 @@ rotas.get('/usuarios', obterUsuario.obterUsuario);
 rotas.put('/usuarios', editarUsuario.editarUsuario);
 
 rotas.post('/clientes', cadastrarCliente.cadastrarClientes);
-rotas.get('/clientes', detalharCliente.detalharClientes);
-rotas.get('/clientes/:id', detalharUmCliente.detalharUmCliente);
+rotas.get('/clientes', listarClientes.listarClientes);
+rotas.get('/clientes/:id', detalharCliente.detalharCliente);
 rotas.put('/clientes/:id', editarCliente.editarCliente);
 
 rotas.post('/cobrancas', cadastrarCobrancas.cadastrarCobrancas);

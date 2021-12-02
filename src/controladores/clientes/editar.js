@@ -14,9 +14,26 @@ const editarCliente = async(req, res) => {
         cidade,
         uf
     } = req.body;
-    const { id } = req.params;
     try {
+        const { id } = req.params;
+
         await editarClienteSchema.validate(req.body);
+
+        const existeCpf = await knex('clientes').where({ cpf }).first();
+        if (Number(existeCpf.id !== id)) {
+            return res.status(400).json({
+                message: "CPF já cadastrado",
+                fiel: "CPF"
+            })
+        }
+
+        const existeEmail = await knex('clientes').where({ email }).first();
+        if (Number(existeEmail.id !== id)) {
+            return res.status(400).json({
+                message: "E-mail já cadastrado",
+                fiel: "email"
+            })
+        }
         const existeId = await knex('clientes').where({ id }).first();
         let clienteASerAtualizado = {
             nome: nome,

@@ -2,13 +2,18 @@ const yup = require('./yup');
 
 const editarClienteSchema = yup.object().shape({
     nome: yup
-        .string(),
+        .string()
+        .required(),
     cpf: yup
-        .string(),
+        .string()
+        .required(),
     telefone: yup
-        .string(),
+        .string()
+        .required(),
     email: yup
-        .string(),
+        .string()
+        .email()
+        .required(),
     endereco: yup
         .string(),
     complemento: yup
