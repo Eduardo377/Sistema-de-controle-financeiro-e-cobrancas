@@ -35,5 +35,4 @@ const login = async (req, res) => {
         return res.status(400).json({ message: error.message });
     }
 }
-
 module.exports = { login };
