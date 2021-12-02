@@ -1,7 +1,7 @@
 const knex = require('../../conexao');
 
 const detalharUmCliente = async(req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     try {
         const existeId = await knex('clientes').where({ id }).first();
         if (existeId) {

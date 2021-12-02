@@ -8,7 +8,6 @@ const editarClienteSchema = yup.object().shape({
     telefone: yup
         .string(),
     email: yup
-        .email()
         .string(),
     endereco: yup
         .string(),
