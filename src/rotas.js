@@ -4,6 +4,7 @@ const cadastrarCliente = require('./controladores/clientes/cadastrar');
 const detalharCliente = require('./controladores/clientes/detalhar');
 const editarUsuario = require('./controladores/usuarios/editar');
 const obterUsuario = require('./controladores/usuarios/obter');
+const cadastrarCobrancas = require('./controladores/cobrancas/cadastrar');
 const verificaLogin = require('./filtros/verificaLogin');
 const login = require('./controladores/usuarios/login');
 const express = require('express');
@@ -21,5 +22,7 @@ rotas.put('/usuarios', editarUsuario.editarUsuario);
 
 rotas.get('/clientes', detalharCliente.detalharClientes);
 rotas.post('/clientes', cadastrarCliente.cadastrarClientes);
+
+rotas.post('/cobrancas', cadastrarCobrancas.cadastrarCobrancas);
 
 module.exports = rotas;
