@@ -39,7 +39,7 @@ const cadastrarClientes = async function (req, res) {
             });
         };
 
-        await knex('clientes').insert({
+       const clienteCadastrado = await knex('clientes').insert({
             nome: nome,
             cpf: cpf,
             telefone: telefone,
@@ -52,7 +52,7 @@ const cadastrarClientes = async function (req, res) {
             uf: uf
         }).returning('*');
 
-        return res.status(201).json({ message: "Cliente Cadastrado!" });
+        return res.status(201).json(clienteCadastrado);
     } catch (error) {
         res.status(400).json(error.message);
     }
