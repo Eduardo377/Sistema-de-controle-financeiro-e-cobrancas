@@ -2,6 +2,7 @@ const editarClienteSchema = require('../../validacoes/editarClienteSchema');
 const knex = require('../../conexao');
 
 const editarCliente = async(req, res) => {
+    const { id } = req.params;
     const {
         nome,
         cpf,
@@ -15,7 +16,6 @@ const editarCliente = async(req, res) => {
         uf
     } = req.body;
     try {
-        const { id } = req.params;
 
         await editarClienteSchema.validate(req.body);
 
