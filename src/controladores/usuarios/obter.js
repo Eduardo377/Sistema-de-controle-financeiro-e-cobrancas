@@ -1,6 +1,6 @@
 const knex = require('../../conexao');
 
-const obterUsuario = async (req, res) => {
+const obterUsuario = async(req, res) => {
     const { id } = req.usuario;
 
     const { senha, ...usuario } = await knex('usuarios').where({ id }).first();
