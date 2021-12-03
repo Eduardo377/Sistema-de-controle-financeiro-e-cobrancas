@@ -1,10 +1,9 @@
 const editarClienteSchema = require('../../validacoes/editarClienteSchema');
 const knex = require('../../conexao');
 
-const editarCliente = async (req, res) => {
+const editarCliente = async(req, res) => {
     const { id } = req.params;
 
-    
     const {
         nome,
         cpf,
@@ -19,8 +18,6 @@ const editarCliente = async (req, res) => {
     } = req.body;
 
     try {
-
-
         await editarClienteSchema.validate(req.body);
 
         const existeCpf = await knex('clientes').where({ cpf }).first();
