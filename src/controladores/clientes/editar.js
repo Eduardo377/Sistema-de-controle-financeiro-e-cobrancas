@@ -1,6 +1,7 @@
 const editarClienteSchema = require("../../validacoes/editarClienteSchema");
 const knex = require("../../conexao");
 
+
 const editarCliente = async (req, res) => {
   const { id } = req.params;
   const idCliente = Number(id);
@@ -8,6 +9,7 @@ const editarCliente = async (req, res) => {
 
   try {
     await editarClienteSchema.validate(req.body);
+
 
     const verificaEmail = await knex("clientes").where({ email }).first();
 
@@ -45,3 +47,4 @@ const editarCliente = async (req, res) => {
 module.exports = {
   editarCliente,
 };
+
