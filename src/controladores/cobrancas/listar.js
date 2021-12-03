@@ -19,15 +19,15 @@ const listarCobrancas = async (req, res) => {
     const ano = new Date().getFullYear();
 
     const listaComNomesEStatus = listaComNomes.map((cobranca) => {
-      cobranca.status = "paga";
+      cobranca.status = "Paga";
       if (!cobranca.paga) {
         if (
           +new Date(cobranca.data_vencimento) <
           +new Date(`${ano}-${mes}-${dia}`)
         ) {
-          return { ...cobranca, status: "vencida" };
+          return { ...cobranca, status: "Vencida" };
         }
-        return { ...cobranca, status: "pendente" };
+        return { ...cobranca, status: "Pendente" };
       }
       return { ...cobranca };
     });
