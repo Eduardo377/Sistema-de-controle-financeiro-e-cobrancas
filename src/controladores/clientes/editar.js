@@ -3,6 +3,7 @@ const knex = require('../../conexao');
 
 const editarCliente = async(req, res) => {
     const { id } = req.params;
+
     const {
         nome,
         cpf,
@@ -15,12 +16,13 @@ const editarCliente = async(req, res) => {
         cidade,
         uf
     } = req.body;
-    try {
 
+    try {
         await editarClienteSchema.validate(req.body);
 
         const existeCpf = await knex('clientes').where({ cpf }).first();
-        if (Number(existeCpf.id !== id)) {
+
+        if (Number(existeCpf.id) !== Number(id)) {
             return res.status(400).json({
                 message: "CPF já cadastrado",
                 field: "CPF"
@@ -28,13 +30,16 @@ const editarCliente = async(req, res) => {
         }
 
         const existeEmail = await knex('clientes').where({ email }).first();
-        if (Number(existeEmail.id !== id)) {
+
+        if (Number(existeEmail.id) !== Number(id)) {
             return res.status(400).json({
                 message: "E-mail já cadastrado",
                 field: "email"
             })
         }
+
         const existeId = await knex('clientes').where({ id }).first();
+
         let clienteASerAtualizado = {
             nome: nome,
             cpf: cpf,
@@ -47,10 +52,12 @@ const editarCliente = async(req, res) => {
             cidade: cidade || null,
             uf: uf || null
         };
+
         if (existeId) {
             await knex('clientes').where({ id }).update(clienteASerAtualizado).returning('*');
             return res.status(200).json({ message: 'Cliente editado com sucesso!' });
         }
+
     } catch (error) {
         res.status(400).json(error.message);
     }
