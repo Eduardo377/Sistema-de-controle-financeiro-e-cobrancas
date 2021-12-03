@@ -6,9 +6,9 @@ const listarClientes = async (req, res) => {
         const clientes = await knex('clientes');
         const cobrancas = await knex('cobrancas');
 
-        const novoCliente = clientes.map((cliente) => {
+        const clientesComCobrancas = clientes.map((cliente) => {
+            cliente.inadimplente = false;
             cobrancas.forEach(item => {
-                cliente.inadimplente = false;
                 if (item.cliente_id === cliente.id) {
                     if (!item.paga) {
                         const mes = new Date().getMonth() + 1;
@@ -26,7 +26,7 @@ const listarClientes = async (req, res) => {
             return cliente;
         });
 
-        return res.status(200).json(novoCliente);
+        return res.status(200).json(clientesComCobrancas);
     } catch (error) {
         return res.status(404).json(error.message);
     }
