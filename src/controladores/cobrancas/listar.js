@@ -13,9 +13,9 @@ const listarCobrancas = async (req, res) => {
       )
       .from("cobrancas")
       .leftJoin("clientes", "cobrancas.cliente_id", "clientes.id");
-
-    const mes = new Date().getMonth() + 1;
-    const dia = new Date().getDate().toString().padStart(2, "0");
+       
+    const mes = new Date().getMonth();
+    const dia = new Date().getDate();
     const ano = new Date().getFullYear();
 
     const listaComNomesEStatus = listaComNomes.map((cobranca) => {
@@ -23,8 +23,9 @@ const listarCobrancas = async (req, res) => {
       if (!cobranca.paga) {
         if (
           +new Date(cobranca.data_vencimento) <
-          +new Date(`${ano}-${mes}-${dia}`)
+          +new Date(ano, mes, dia)
         ) {
+          
           return { ...cobranca, status: "Vencida" };
         }
         return { ...cobranca, status: "Pendente" };
