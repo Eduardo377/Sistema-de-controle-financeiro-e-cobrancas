@@ -20,7 +20,7 @@ const cadastrarCobrancas = async function (req, res) {
       })
       .returning("*");
 
-    return res.status(201).json(cobrancaCadastrada[0]);
+    return res.status(201 ).json(cobrancaCadastrada[0]);
   } catch (error) {
     res.status(400).json(error.message);
   }
