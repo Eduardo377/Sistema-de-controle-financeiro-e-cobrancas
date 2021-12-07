@@ -20,7 +20,9 @@ const listarCobrancas = async (req, res) => {
         if (
           +new Date(cobranca.data_vencimento) + 86400000 <
           +new Date()
+
         ) {
+          
           return { ...cobranca, status: "Vencida" };
         }
         return { ...cobranca, status: "Pendente" };

@@ -11,6 +11,7 @@ const listarCobrancasCliente = async (req, res) => {
     if (cobrancasCliente.length === 0) {
       return res.status(200).json(cobrancasCliente);
     }
+
     const listaComStatus = cobrancasCliente.map((cobranca) => {
       cobranca.status = "paga";
       if (!cobranca.paga) {
