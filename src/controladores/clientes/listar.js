@@ -10,13 +10,9 @@ const listarClientes = async (req, res) => {
       cobrancas.forEach((item) => {
         if (item.cliente_id === cliente.id) {
           if (!item.paga) {
-            const mes = new Date().getMonth() + 1;
-            const dia = new Date().getDate().toString().padStart(2, "0");
-            const ano = new Date().getFullYear();
-
             if (
-              +new Date(item.data_vencimento) <
-              +new Date(`${ano}-${mes}-${dia}`)
+              +new Date(item.data_vencimento) + 86400000 <
+              +new Date()
             ) {
               return (cliente.inadimplente = true);
             }

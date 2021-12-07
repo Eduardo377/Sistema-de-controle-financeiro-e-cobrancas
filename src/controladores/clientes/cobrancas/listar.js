@@ -12,16 +12,12 @@ const listarCobrancasCliente = async (req, res) => {
       return res.status(200).json(cobrancasCliente);
     }
 
-    const mes = new Date().getMonth();
-    const dia = new Date().getDate();
-    const ano = new Date().getFullYear();
-
     const listaComStatus = cobrancasCliente.map((cobranca) => {
       cobranca.status = "paga";
       if (!cobranca.paga) {
         if (
-          +new Date(cobranca.data_vencimento) <
-          +new Date(ano, mes, dia)
+          +new Date(cobranca.data_vencimento) + 86400000 <
+          +new Date()
         ) {
           return { ...cobranca, status: "vencida" };
         }
