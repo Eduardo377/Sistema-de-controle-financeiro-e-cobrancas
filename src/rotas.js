@@ -13,6 +13,8 @@ const deletarCliente = require("./controladores/clientes/deletar");
 const cadastrarCobrancas = require("./controladores/cobrancas/cadastrar");
 const listarCobrancas = require("./controladores/cobrancas/listar");
 const listarCobrancasCliente = require("./controladores/clientes/cobrancas/listar");
+const detalharCobranca = require("./controladores/cobrancas/detalhar");
+const deletarCobrancas = require("./controladores/cobrancas/deletar")
 
 const verificaLogin = require("./filtros/verificaLogin");
 
@@ -39,5 +41,6 @@ rotas.delete("/clientes/:id", deletarCliente.deletarCliente);
 rotas.post("/cobrancas", cadastrarCobrancas.cadastrarCobrancas);
 rotas.get("/cobrancas/:clienteid", listarCobrancasCliente);
 rotas.get("/cobrancas", listarCobrancas.listarCobrancas);
-
+rotas.get("/cobranca/:id", detalharCobranca.detalharCobranca);
+rotas.delete("/cobranca/:id", deletarCobrancas.deletarCobrancas)
 module.exports = rotas;
